@@ -7,7 +7,47 @@
 <body>
 
 <section>
-<h1>this is signup page</h1>
+<div class="conatiner" >
+<div class="row" style="justify-content: center">
+<div class="col-md-5 ">
+<div class="my-card mt-3">
+<div th:if="${session.message}" class="alert" th:classappend="${session.message.type}" role="alert">
+    <p th:text="${session.message.content}"></p>
+    <th:block th:remove="all"></th:block>
+</div>
+
+
+<h1 class="text-center">Register Here</h1>
+<form action="" th:action="@{/do_register}" method="post" th:object="${user}">
+
+ <div class="form-group">
+    <label for="name_field">Name</label>
+    <input type="text" name="name" th:value="${user.name}" th:classappend="${#fields.hasErrors('name')? 'is-valid':''}" class="form-control"  id="name_field" required aria-describedby="emailHelp" placeholder="Enter your name">
+ </div>
+ <div class="invalid-feedback" th:each="e:${#fields.errors('name')}" th:text="${e}"></div>
+ <div class="form-group">
+    <label for="email_field">Email</label>
+    <input type="email" name="email" th:value="${user.email}" class="form-control" id="email_field" required aria-describedby="emailHelp" placeholder="Enter your email">
+ </div>
+ <div class="form-group">
+    <label for="password_field">Password</label>
+    <input type="password" name="password" class="form-control" id="password_field" required aria-describedby="emailHelp" placeholder="Enter your password">
+ </div>
+  <div class="form-group">
+   <textarea rows="7" th:value="${user.about}" name="about" class="form-control" placeholder="Enter something about yourself" cols=""></textarea>
+  </div>
+  <div class="form-check form-group">
+    <input type="checkbox" class="form-check-input" id="aggrement" name="aggrement">
+    <label class="form-check-label" for="aggrement">Accept terms and conditions</label>
+  </div>
+  <button type="submit" class="btn bgPrimary text-white">Register</button>
+   <button type="reset" class="btn bgPrimary text-white">Clear</button>
+
+</form>
+</div>
+</div>
+</div>
+</div>
 </section>
 
 </body>

@@ -3,6 +3,9 @@ package com.smart.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.Size;
+
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="USER")
@@ -20,6 +24,8 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+	@NotBlank(message="Feild should not be empty...")
+	@Size(min=5,max=20)
     private String name;
     @Column(unique = true)
     private String email;
@@ -33,6 +39,13 @@ public class User {
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "user")
     private List<Contact> contacts=new ArrayList<>();
     
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
+				+ ", enabled=" + enabled + ", imageUrl=" + imageUrl + ", about=" + about + ", contacts=" + contacts
+				+ "]";
+	}
+
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
